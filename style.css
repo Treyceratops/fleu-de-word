@@ -1,0 +1,9 @@
+body {
+    background-color: pink;
+}
+
+#current-guess {
+    width: 255px;
+    height: 50px;
+    border: 1px solid black;
+}
