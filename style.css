@@ -1,6 +1,10 @@
+* {
+    font-family: 'Pacifico', cursive;
+    color: #b1b575;
+}
+
 body {
     background-color: rgb(13, 13, 13);
-    color: #b1b575;
     text-align: center;
 }
 
@@ -12,11 +16,24 @@ h2 {
     margin-top: -40px;
 }
 
+button {
+    margin-right: 1000px;
+    padding: 5px;
+    border-radius: 20px;
+    background-color: #ea1763;
+    border-color: #b1b575;
+    font-size: 18px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
 #roses {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 30%;
+    width: 20%;
 }
 
 .cell {
