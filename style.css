@@ -1,9 +1,42 @@
 body {
-    background-color: pink;
+    background-color: rgb(13, 13, 13);
+    color: #b1b575;
+    text-align: center;
+}
+
+h1 {
+    font-size: 80px;
+}
+
+h2 {
+    margin-top: -40px;
+}
+
+#roses {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.cell {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    border: 1px solid white;
+    text-align: center;
+}
+
+.wide-cell {
+    height: 50px;
+    width: 100px;
+    display: inline-block;
+    border: 1px solid white;
+    text-align: center;
 }
 
 #current-guess {
     width: 255px;
     height: 50px;
-    border: 1px solid black;
+    border: 1px solid white;
 }
