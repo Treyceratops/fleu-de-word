@@ -1,6 +1,6 @@
 * {
     font-family: 'Pacifico', cursive;
-    color: #b1b575;
+    color: #aadb79;
 }
 
 body {
@@ -13,7 +13,12 @@ h1 {
 }
 
 h2 {
-    margin-top: -40px;
+    margin-top: -60px;
+}
+
+h3 {
+    margin-top: 40px;
+    color: white;
 }
 
 button {
@@ -22,6 +27,7 @@ button {
     border-radius: 20px;
     background-color: #ea1763;
     border-color: #b1b575;
+    color: white;
     font-size: 18px;
 }
 
@@ -40,16 +46,14 @@ button:hover {
     height: 50px;
     width: 50px;
     display: inline-block;
-    border: 1px solid white;
+    border: 1px solid #aadb79;
     text-align: center;
+    color: white;
+    border-radius: 5px;
 }
 
-.wide-cell {
-    height: 50px;
-    width: 100px;
-    display: inline-block;
-    border: 1px solid white;
-    text-align: center;
+.cell:hover {
+    cursor: pointer;
 }
 
 #current-guess {

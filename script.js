@@ -12,7 +12,7 @@ const WORD_BANK = ['FLOWER', 'GARDEN', 'STAMEN', 'PETAL', 'LEAF', 'POLLEN', 'STE
 // ];
 
 // holds flowers in diff states of decay's images
-const DECAYED_FLOWERS = ['https://i.imgur.com/sSlpUiV.jpg?2', 'https://i.imgur.com/r8SL3dO.jpg?1', 'https://i.imgur.com/0v8IfiF.jpg?1', 'https://i.imgur.com/bft2YiS.jpg?1', 'https://i.imgur.com/mT7c7QG.jpg?1', 'https://i.imgur.com/hNeSeqR.jpg?1'];
+const DECAYED_FLOWERS = ['https://i.imgur.com/sSlpUiV.jpg?2', 'https://i.imgur.com/r8SL3dO.jpg?1', 'https://i.imgur.com/0v8IfiF.jpg?1', 'https://i.imgur.com/bft2YiS.jpg?2', 'https://i.imgur.com/mT7c7QG.jpg?2', 'https://i.imgur.com/hNeSeqR.jpg?2'];
 
 // defines the most incorrect guesses that can be made
 const MAX_WRONG_GUESSES = 5
@@ -30,9 +30,6 @@ let currentGuess;
 
 // variable that tracks # of wrong guesses
 let currWrongGuesses;
-
-// variable that holds flower img's current state of decay in array
-let flowerState;
 
 // variable holds true or false depending on whether current guess is in word
 let includedLetter;
@@ -57,36 +54,27 @@ const roses = document.getElementById('roses');
 const currentGuessEl = document.getElementById('current-guess');
 
 // display screen (icebox: update display to say `You have made ${# of wrong guesses}` or `you have `${x}` amount of guesses left`)
+const displayScreen = document.getElementById('displayScreen')
 
 /*----- event listeners -----*/
 
-// allows keyboard to be clicked
+// allows keyboard to be clicked, runs handleClick function
 keyboard1.addEventListener('click', handleClick);
 keyboard2.addEventListener('click', handleClick);
 keyboard3.addEventListener('click', handleClick);
 
-// resets board to "start game" state
+// allows reset button to be clicked, runs resetGame function
 resetButton.addEventListener('click', resetGame);
-
-// if no more '_', then win game function
-
-// if more than 5 wrong guesses made, game over function
-
-// stop letter from being double clicked (icebox:change button color)
 
 /*----- functions -----*/
 
-// guessed wrong function, updates numOfWrongGuesses variable, changes image to next in image array, makes wrong guess unclickable
-
-// game over function, update display "you lose, press reset game to try again", stop keyboard from being clicked again (.removeEventListener for keyboard)
-
-// win game function, update display "you win! press reset to play again", stop keyboard from being pressed again (.removeEventListener for keyboard)
-
+// render current guessed word progress or blank spots per length
 
 // sets game up to starting state
 function initGame() {
     secretWord = getSecretWord()
     currWrongGuesses = 0
+    renderDisplay()
     currentGuess = ''
     roses.src = DECAYED_FLOWERS[0]
     generateKeyboard1()
@@ -98,8 +86,12 @@ function initGame() {
 function resetGame() {
     secretWord = getSecretWord()
     currWrongGuesses = 0
+    renderDisplay()
     currentGuess = ''
     roses.src = DECAYED_FLOWERS[0]
+    keyboard1.addEventListener('click', handleClick);
+    keyboard2.addEventListener('click', handleClick);
+    keyboard3.addEventListener('click', handleClick);
 }
 // randomizes secret word
 function getSecretWord() {
@@ -140,7 +132,6 @@ function generateKeyboard3() {
 // when keyboard is clicked, updates the inner text and runs updateCurrentGuess function
 function handleClick(evt) {
     updateCurrentGuess(evt.target.innerText)
-    // render()
 }
 
 // updates current guess to chosen letter
@@ -161,10 +152,10 @@ function checkForLetter() {
 function dealResults() {
     if (includedLetter === true) {
         console.log('trueeeeee')
-        // make letter unclickable a 2nd time
+        // make letter unclickable a 2nd time (change color)
     } else {
         currWrongGuesses += 1
-        // make letter unclickable a 2nd time
+        // make letter unclickable a 2nd time (change color)
     }
 }
 
@@ -172,33 +163,44 @@ function dealResults() {
 function phaseFlower() {
     if (currWrongGuesses === 1) {
         roses.src = DECAYED_FLOWERS[1]
+        renderDisplay()
     } if (currWrongGuesses === 2) {
         roses.src = DECAYED_FLOWERS[2]
+        renderDisplay()
     } if (currWrongGuesses === 3) {
         roses.src = DECAYED_FLOWERS[3]
+        renderDisplay()
     } if (currWrongGuesses === 4) {
         roses.src = DECAYED_FLOWERS[4]
+        renderDisplay()
     } if (currWrongGuesses === 5) {
         roses.src = DECAYED_FLOWERS[5]
+        loseGame()
     }
 }
 
-// function handleDelete() {
-//     currentGuess = currentGuess.slice(0, currentGuess.length - 1)
-//     console.log(currentGuess)
+// in event of a won game, deactivates keyboard & displays win
+// function winGame() {
+//     if (some winning condition) {
+//         keyboard1.removeEventListener('click', handleClick);
+//         keyboard2.removeEventListener('click', handleClick);
+//         keyboard3.removeEventListener('click', handleClick);
+//         displayScreen.innerText = 'Felicitations! We have a winner!'
+//     }
 // }
 
-// function render() {
-//     while (currentGuessEl.firstElementChild) {
-//         currentGuessEl.removeChild(currentGuessEl.firstElementChild)
-//     }
-//     const currentGuessArr = currentGuess.split('')
-//     currentGuessArr.forEach(function (letter) {
-//         const cell = document.createElement('div')
-//         cell.innerText = letter
-//         cell.classList.add('cell')
-//         currentGuessEl.appendChild(cell)
-//     })
-// }
+// in event of a lost game, deactivates keyboard & displays loss
+function loseGame() {
+    if (currWrongGuesses === 5) {
+        keyboard1.removeEventListener('click', handleClick);
+        keyboard2.removeEventListener('click', handleClick);
+        keyboard3.removeEventListener('click', handleClick);
+        displayScreen.innerText = 'Fin... Play again?'
+    }
+}
+// displays length of secret word and guesses left
+function renderDisplay() {
+    displayScreen.innerText = `Make a guess! Your word is ${secretWord.length} letters long, you have ${5 - currWrongGuesses} guesses left.`
+}
 
 initGame() 
