@@ -146,9 +146,6 @@ function updateCurrentGuess(cell) {
     if (correctLetters.some((letter) => letter === currentGuess) || incorrectLetters.some((letter) => letter === currentGuess)) {
         return
     }
-    // correctLetters.some(function(letter){
-    //     return letter === currentGuess
-    // })
     checkForLetter()
     dealResults(cell)
     phaseFlower()
