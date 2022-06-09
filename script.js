@@ -6,10 +6,6 @@ const ALLOWED_LETTERS = [['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'], ['a
 
 // create an array of words
 const WORD_BANK = ['FLOWER', 'GARDEN', 'STAMEN', 'PETAL', 'LEAF', 'POLLEN', 'STEM', 'THORN', 'ROOT', 'BLOSSOM', 'ROSE', 'ORCHID', 'DAISY', 'SUNFLOWER', 'LILAC', 'LAVENDER', 'TULIP', 'LILY', 'PEONY', 'GARDENIA', 'CARNATION', 'DAHLIA', 'PANSY', 'AZALEA', 'GERANIUM', 'SNAPDRAGON', 'IRIS', 'POPPY', 'DAFFODIL', 'PETUNIA', 'VIOLET', 'HIBISCUS', 'PLUMERIA'];
-// const WORD_BANK = [
-//     ['f', 'l', 'o', 'w', 'e', 'r'], 
-//     ['s', 't', 'a', 'i', 'r', 's'],
-// ];
 
 // holds flowers in diff states of decay's images
 const DECAYED_FLOWERS = ['https://i.imgur.com/sSlpUiV.jpg?2', 'https://i.imgur.com/r8SL3dO.jpg?1', 'https://i.imgur.com/0v8IfiF.jpg?1', 'https://i.imgur.com/bft2YiS.jpg?2', 'https://i.imgur.com/mT7c7QG.jpg?2', 'https://i.imgur.com/hNeSeqR.jpg?2'];
@@ -38,8 +34,7 @@ let includedLetter;
 let correctLetters = [];
 
 // holds variables of incorrectly guessed letters
-let incorrectLetter = [];
-
+let incorrectLetters = [];
 
 // (icebox: hints)
 
@@ -61,6 +56,9 @@ const roses = document.getElementById('roses');
 const keyboard1 = document.getElementById('keyboard1');
 const keyboard2 = document.getElementById('keyboard2');
 const keyboard3 = document.getElementById('keyboard3');
+
+// gets current guessed word div from DOM
+const guessDiv = document.getElementById('current-guess')
 
 /*----- event listeners -----*/
 
@@ -92,11 +90,12 @@ function initGame() {
     currentGuess = ''
     renderDisplay()
     correctLetters = []
-    incorrectLetter = []
+    incorrectLetters = []
     generateKeyboard1()
     generateKeyboard2()
     generateKeyboard3()
     addKeyboard()
+    generateSecretSpots()
 }
 
 // resets game
@@ -107,8 +106,12 @@ function resetGame() {
     currentGuess = ''
     renderDisplay()
     correctLetters = []
-    incorrectLetter = []
+    incorrectLetters = []
     addKeyboard()
+    generateSecretSpots()
+    document.querySelectorAll('.keyboard .cell').forEach(function (cell) {
+        cell.style.color = 'white'
+    })
 }
 // randomizes secret word
 function getSecretWord() {
@@ -148,32 +151,56 @@ function generateKeyboard3() {
 }
 // when keyboard is clicked, updates the inner text and runs updateCurrentGuess function with clicked letter
 function handleClick(evt) {
-    updateCurrentGuess(evt.target.innerText)
+    updateCurrentGuess(evt.target)
 }
 
 // updates current guess to chosen letter
-function updateCurrentGuess(letter) {
-    currentGuess = letter
-    console.log(currentGuess)
+function updateCurrentGuess(cell) {
+    currentGuess = cell.innerText
+    if (correctLetters.some((letter) => letter === currentGuess) || incorrectLetters.some((letter) => letter === currentGuess)) {
+        return
+    }
+    // correctLetters.some(function(letter){
+    //     return letter === currentGuess
+    // })
     checkForLetter()
-    dealResults()
+    dealResults(cell)
     phaseFlower()
+    winGame()
 }
+function generateSecretSpots() {
+    // generates top row of keyboard
+    guessDiv.innerHTML = ''
+    secretWord.split('').forEach(function (letter) {
+        const cell = document.createElement('div')
+        cell.classList.add('cell')
+        guessDiv.appendChild(cell)
+    })
 
+}
 // searches to see if currentGuess is in word
 function checkForLetter() {
     includedLetter = secretWord.includes(currentGuess)
 }
 
 // updates correct or incorrect guesses
-function dealResults() {
+function dealResults(cell) {
     if (includedLetter === true) {
-        console.log('trueeeeee')
-        // make letter unclickable a 2nd time (change color)
+        cell.style.color = 'green'
+        correctLetters.push(currentGuess)
+        addResults(currentGuess)
     } else {
         currWrongGuesses += 1
-        // make letter unclickable a 2nd time (change color)
+        cell.style.color = 'red'
+        incorrectLetters.push(currentGuess)
     }
+}
+function addResults(guessedLetter) {
+    secretWord.split('').forEach((currLetter, idx) => {
+        if (currLetter === guessedLetter) {
+            guessDiv.childNodes[idx].innerHTML = guessedLetter
+        }
+    })
 }
 
 // changes image based on incorrect guesses
@@ -184,12 +211,18 @@ function phaseFlower() {
 }
 
 // in event of a won game, deactivates keyboard & displays win
-// function winGame() {
-//     if (some winning condition) {
-//         removeKeyboard()
-//         displayScreen.innerText = 'Felicitations! We have a winner!'
-//     }
-// }
+function winGame() {
+    let filledCells = true
+    for (let idx = 0; idx < guessDiv.childNodes.length; idx++) {
+        if (guessDiv.childNodes[idx].innerText === '') {
+            filledCells = false
+        }
+    }
+    if (filledCells === true) {
+        removeKeyboard()
+        displayScreen.innerText = 'Felicitations! We have a winner!'
+    }
+}
 
 // in event of a lost game, deactivates keyboard & displays loss
 function loseGame() {

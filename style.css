@@ -48,7 +48,6 @@ button:hover {
     display: inline-block;
     border: 1px solid #aadb79;
     text-align: center;
-    color: white;
     border-radius: 5px;
 }
 
@@ -56,8 +55,18 @@ button:hover {
     cursor: pointer;
 }
 
+.keyboard .cell {
+    color: white;
+}
+
 #current-guess {
-    width: 255px;
     height: 50px;
-    border: 1px solid white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#current-guess .cell {
+    color: hotpink
 }
