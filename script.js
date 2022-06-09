@@ -140,7 +140,7 @@ function generateKeyboard3() {
 function handleClick(evt) {
     updateCurrentGuess(evt.target)
 }
-// stops keys from being clicked again, checks conditions of other functions
+// stops keys from being clicked again, win game conditions spark here
 function updateCurrentGuess(cell) {
     currentGuess = cell.innerText
     if (correctLetters.some((letter) => letter === currentGuess) || incorrectLetters.some((letter) => letter === currentGuess)) {
@@ -157,7 +157,7 @@ function updateCurrentGuess(cell) {
 // generates cells for the secret word
 function generateSecretSpots() {
     guessDiv.innerHTML = ''
-    secretWord.split('').forEach(function (letter) {
+    secretWord.split('').forEach(function () {
         const cell = document.createElement('div')
         cell.classList.add('cell')
         guessDiv.appendChild(cell)
@@ -179,7 +179,7 @@ function dealResults(cell) {
         incorrectLetters.push(currentGuess)
     }
 }
-// adds letter to word when correctly guessed
+// adds letter to secret word when correctly guessed
 function addResults(guessedLetter) {
     secretWord.split('').forEach((currLetter, idx) => {
         if (currLetter === guessedLetter) {
@@ -187,7 +187,7 @@ function addResults(guessedLetter) {
         }
     })
 }
-// changes image based on incorrect guesses
+// changes image based on incorrect guesses, lose game conditions spark here
 function phaseFlower() {
     roses.src = DECAYED_FLOWERS[currWrongGuesses]
     renderDisplay()
