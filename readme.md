@@ -7,6 +7,8 @@ Lost game- (https://i.imgur.com/oAiupVK.png)
 
 Technologies used: Javascript, HTML, & CSS
 
+Pseudocode: (https://i.imgur.com/dHLlkUU.png)
+
 Getting Started: (https://treyceratops.github.io/fleur-de-word/)
     Guess the letters in a secret word correctly to prevent the flower from dying, you can guess incorrectly up to 5 times before game is lost
 

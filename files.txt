@@ -1,0 +1,44 @@
+1) Define required constants
+    1.1) define letters allowed to be used
+    1.2) define an array of words to use as secret word
+    1.3) define flower images in diff states of decay
+    1.4) define the most incorrect guesses that can be made
+
+2) Define required variables used to track the state of the game
+    2.1) use variable to hold picked random word from array
+    2.3) use variable to hold array to show # of empty spaces per word
+    2.4) use variable to hold current guessed letter
+    2.5) use variable to hold # that tracks wrong guesses
+    2.6) use variable to hold true or false depending on whether current guess is in secret word
+    2.7) use variable to hold correctly guessed letters
+    2.8) use variable to hold incorrectly guessed letters
+
+3) Store elements on the page that will be accessed in code more than once in variables to make code more concise, readable and performant.
+    3.1) get display screen from DOM 
+    3.2) get reset button from DOM
+    3.3) get image div from DOM
+    3.4) get keyboard rows from DOM
+    3.5) get current guessed word div from DOM
+
+4) Define event listeners on the page that will listen when and action is performed and respond to
+	4.1) listen to reset button when clicked, run resetGame function
+
+5) Define functions and their roles when called
+    5.1) listen to keyboard being clicked, call functions to:
+    handle the click event
+    5.2) remove event listener to keyboard
+    5.3) set game up to starting state including secret word, image, guess data calls functions to: 
+        generate the keyboard,
+        add keyboard click event,
+        generate cells for secret word
+    5.4) resets game to starting state
+    5.5) randomize secret word
+    5.6) generate keyboard into div cells
+    5.7) when keyboard is clicked, call function to: 
+        update the current guess
+    5.8) sort correct or incorrect guesses, change key color (red for incorrect, green for correct), adds correct results to secret word
+    5.9) add letter to secret word when correctly guessed
+    5.10) change flower image based on incorrect guesses, call function to:         hold        losing conditions
+    5.11) in event of a won game, deactivate keyboard & display win
+    5.12) in event of a lost game, deactivate keyboard & display loss
+    5.13) call start game state
