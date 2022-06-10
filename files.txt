@@ -21,7 +21,7 @@
     3.5) get current guessed word div from DOM
 
 4) Define event listeners on the page that will listen when and action is performed and respond to
-	4.1) listen to reset button when clicked, run resetGame function
+    4.1) listen to reset button when clicked, run resetGame function
 
 5) Define functions and their roles when called
     5.1) listen to keyboard being clicked, call functions to:
@@ -38,7 +38,8 @@
         update the current guess
     5.8) sort correct or incorrect guesses, change key color (red for incorrect, green for correct), adds correct results to secret word
     5.9) add letter to secret word when correctly guessed
-    5.10) change flower image based on incorrect guesses, call function to:         hold        losing conditions
+    5.10) change flower image based on incorrect guesses, call function to:
+        hold losing conditions
     5.11) in event of a won game, deactivate keyboard & display win
     5.12) in event of a lost game, deactivate keyboard & display loss
     5.13) call start game state
